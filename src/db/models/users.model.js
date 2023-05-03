@@ -69,7 +69,9 @@ const UserSchema = {
 class User extends Model {
   static associate(models) {
     // associate
-
+    this.belongsTo(models.Role, {
+      as: 'role'
+    })
   }
 
   static config(sequelize) {
