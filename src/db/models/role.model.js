@@ -1,4 +1,4 @@
-const { Model, DataTypes, Sequelize } = require('sequelize')
+const { Model, DataTypes } = require('sequelize')
 
 const ROLE_TABLE = 'roles'
 
@@ -21,13 +21,12 @@ const RoleSchema = {
 }
 
 class Role extends Model {
-  static associate(models) {
+  static associate (models) {
     // associate
     this.hasMany(models.User, {
       as: 'users',
       foreignKey: 'roleId'
     })
-
   }
 
   static config (sequelize) {

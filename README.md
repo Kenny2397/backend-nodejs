@@ -1,6 +1,8 @@
 
 Lista de cambios en modelo 
 
-User
+[x] modelos
+[] routes
+[] auth
 
-[ ]  identifier -> BigInt
+[] testing jest y supertest

@@ -10,13 +10,17 @@ app.use(express.json(true), express.urlencoded({ extended: true }))
 /**
  * MIDDLEWARES
 */
-
 const {
   LogErrors,
   ErrorHandler,
   BoomErrorHandler,
   OrmErrorHandler
 } = require('./src/middlewares/error.handler')
+
+/**
+ * AUTH
+ */
+require('./src/utils/auth/index')
 
 /**
  * ROUTES

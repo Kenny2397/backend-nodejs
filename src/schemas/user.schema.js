@@ -7,7 +7,6 @@ const identifier = Joi.string().regex(/^\d+$/)
 const phone = Joi.string().pattern(/^(\+)?\d{1,13}$/)
 const email = Joi.string().email()
 const password = Joi.string().min(3)
-const roleId = Joi.string().min(4)
 
 const createUserSchema = Joi.object({
   name: name.required(),
@@ -19,7 +18,7 @@ const createUserSchema = Joi.object({
 
 const updateUserSchema = Joi.object({
   email: email.optional(),
-  password: password.optional(),
+  password: password.optional()
 
 })
 

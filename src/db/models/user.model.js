@@ -12,7 +12,10 @@ const UserSchema = {
   name: {
     allowNull: false,
     type: DataTypes.STRING,
-    unique: false
+    unique: false,
+    validate: {
+      is: /^(?=.*[a-zA-Z])[a-zA-Z0-9\s]+$/
+    }
   },
   lastName: {
     field: 'last_name',
@@ -26,18 +29,15 @@ const UserSchema = {
     validate: {
       isNumeric: {
         args: true,
-        msg: 'Identifier must be numeric',
-      },
-    },
+        msg: 'Identifier must be numeric'
+      }
+    }
   },
   phone: {
     allowNull: false,
     type: DataTypes.STRING,
     validate: {
-      len: {
-        args: [0, 13],
-        msg: 'Phone number must be between 0 and 13 characters',
-      }
+      is: /^(\+)?\d{1,13}$/
     }
   },
   email: {
@@ -46,7 +46,7 @@ const UserSchema = {
     unique: true,
     validate: {
       isEmail: {
-        msg: "Invalid email format"
+        msg: 'Invalid email format'
       }
     }
   },
@@ -59,22 +59,22 @@ const UserSchema = {
     defaultValue: 1
   },
   createdAt: {
+    field: 'created_at',
     allowNull: false,
     type: DataTypes.DATE,
-    field: 'created_at',
     defaultValue: Sequelize.NOW
   }
 }
 
 class User extends Model {
-  static associate(models) {
+  static associate (models) {
     // associate
     this.belongsTo(models.Role, {
       as: 'role'
     })
   }
 
-  static config(sequelize) {
+  static config (sequelize) {
     return {
       sequelize,
       tableName: USER_TABLE,

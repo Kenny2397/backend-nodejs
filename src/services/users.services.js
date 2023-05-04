@@ -4,10 +4,10 @@ const bcrypt = require('bcrypt')
 const { models } = require('./../libs/sequelize')
 
 class UserService {
+  // eslint-disable-next-line no-useless-constructor
+  constructor () { }
 
-  constructor() { }
-
-  async create(data) {
+  async create (data) {
     const userEmail = data.email
 
     const userAlredyExist = await models.User.findOne({
@@ -26,12 +26,22 @@ class UserService {
       ...data,
       password: hashPassword
     })
-    
+
     delete newUser.dataValues.password
     return newUser
   }
 
-  async find() {
+  async findByEmail (email) {
+    const user = await models.User.findOne({
+      where: {
+        email
+      }
+    })
+
+    return user
+  }
+
+  async find () {
     // const query = 'SELECT * FROM TASKS'
     // const [data, metadata] = await sequelize.query(query)
     const rta = models.User.findAll({
@@ -40,7 +50,7 @@ class UserService {
     return rta
   }
 
-  async findOne(userId) {
+  async findOne (userId) {
     // const product = this.products.find(p => p.id === productId)
     // console.log(product)
     // if(!product){
@@ -57,7 +67,7 @@ class UserService {
     return user
   }
 
-  async update(userId, data) {
+  async update (userId, data) {
     // const productIndex = this.products.findIndex(p => p.id === productId)
     // // console.log(productIndex)
     // if (productIndex === -1) {
@@ -80,7 +90,7 @@ class UserService {
     return userUpdated
   }
 
-  async delete(userId) {
+  async delete (userId) {
     // const productIndex = this.products.findIndex(p => p.id = productId)
     // if (productIndex == -1) {
     //   throw boom.notFound('No se encontró producto')

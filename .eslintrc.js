@@ -11,5 +11,6 @@ module.exports = {
     ecmaVersion: 'latest'
   },
   rules: {
+    // 'eslint-disable-next-line no-useless-constructor': false
   }
 }

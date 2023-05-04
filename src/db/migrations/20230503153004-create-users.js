@@ -1,10 +1,9 @@
-'use strict';
+'use strict'
 const { DataTypes } = require('sequelize')
 const { USER_TABLE } = require('./../models/users.model')
 
 module.exports = {
-  async up(queryInterface, Sequelize) {
-
+  async up (queryInterface, Sequelize) {
     await queryInterface.createTable(USER_TABLE, {
       id: {
         allowNull: false,
@@ -51,10 +50,10 @@ module.exports = {
         field: 'created_at',
         defaultValue: Sequelize.NOW
       }
-    });
+    })
   },
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable(USER_TABLE);
+  async down (queryInterface, Sequelize) {
+    await queryInterface.dropTable(USER_TABLE)
   }
-};
+}
