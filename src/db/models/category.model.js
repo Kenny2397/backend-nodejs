@@ -1,8 +1,8 @@
 const { Model, DataTypes, Sequelize } = require('sequelize')
 
-const ROLE_TABLE = 'roles'
+const CATEGORY_TABLE = 'categories'
 
-const RoleSchema = {
+const CategorySchema = {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -11,37 +11,35 @@ const RoleSchema = {
   },
   name: {
     allowNull: false,
-    type: DataTypes.STRING,
-    unique: true
+    type: DataTypes.STRING
   },
   description: {
     allowNull: false,
     type: DataTypes.TEXT
   },
   createdAt: {
+    field: 'created_at',
     allowNull: false,
     type: DataTypes.DATE,
-    field: 'created_at',
     defaultValue: Sequelize.NOW
   }
 }
 
-class Role extends Model {
+class Category extends Model {
   static associate (models) {
-    // associate
-    this.hasMany(models.User, {
-      as: 'users'
+    this.belongsToMany(models.Restaurant, {
+      through: 'Dish'
     })
   }
 
   static config (sequelize) {
     return {
       sequelize,
-      tableName: ROLE_TABLE,
-      modelName: 'Role',
+      tableName: CATEGORY_TABLE,
+      modelName: 'Category',
       timestamps: false
     }
   }
 }
 
-module.exports = { ROLE_TABLE, RoleSchema, Role }
+module.exports = { CATEGORY_TABLE, CategorySchema, Category }

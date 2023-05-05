@@ -27,10 +27,7 @@ const UserSchema = {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      isNumeric: {
-        args: true,
-        msg: 'Identifier must be numeric'
-      }
+      isNumeric: true
     }
   },
   phone: {
@@ -70,7 +67,16 @@ class User extends Model {
   static associate (models) {
     // associate
     this.belongsTo(models.Role, {
-      as: 'role'
+      as: 'role',
+      foreignKey: 'roleId'
+    })
+
+    this.hasMany(models.RestaurantEmployee, {
+      as: 'restaurants_employees'
+    })
+
+    this.hasOne(models.Order, {
+      as: 'order'
     })
   }
 

@@ -1,4 +1,6 @@
-const { Model, DataTypes } = require('sequelize')
+const { Model, DataTypes, Sequelize } = require('sequelize')
+const { CATEGORY_TABLE } = require('./category.model')
+const { RESTAURANT_TABLE } = require('./restaurant.model')
 
 const DISH_TABLE = 'dishes'
 
@@ -21,10 +23,7 @@ const DishSchema = {
     allowNull: false,
     type: DataTypes.INTEGER,
     validate: {
-      isInt: {
-        args: [1],
-        msg: 'price must be a number'
-      }
+      isInt: true
     }
   },
   urlImage: {
@@ -38,19 +37,40 @@ const DishSchema = {
     defaultValue: true
   },
   categoryId: {
+    field: 'category_id',
     allowNull: false,
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
+    references: {
+      model: CATEGORY_TABLE,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
   },
-  // this field is not in body, is in
   restaurantId: {
+    field: 'restaurant_id',
     allowNull: false,
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
+    references: {
+      model: RESTAURANT_TABLE,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
+  },
+  createdAt: {
+    field: 'created_at',
+    allowNull: false,
+    type: DataTypes.DATE,
+    defaultValue: Sequelize.NOW
   }
 }
 
 class Dish extends Model {
   static associate (models) {
-    // associate
+    this.belongsToMany(models.Order, {
+      through: 'OrderDish'
+    })
   }
 
   static config (sequelize) {

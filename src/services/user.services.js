@@ -1,7 +1,7 @@
 const boom = require('@hapi/boom')
 const bcrypt = require('bcrypt')
 
-const { models } = require('./../libs/sequelize')
+const { models } = require('../libs/sequelize')
 
 class UserService {
   // eslint-disable-next-line no-useless-constructor

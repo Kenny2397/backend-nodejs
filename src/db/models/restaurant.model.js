@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require('sequelize')
+const { Model, DataTypes, Sequelize } = require('sequelize')
 
 const RESTAURANT_TABLE = 'restaurants'
 
@@ -41,12 +41,22 @@ const RestaurantSchema = {
     field: 'owner_id',
     allowNull: false,
     type: DataTypes.INTEGER
+  },
+  createdAt: {
+    allowNull: false,
+    type: DataTypes.DATE,
+    field: 'created_at',
+    defaultValue: Sequelize.NOW
   }
 }
 
 class Restaurant extends Model {
   static associate (models) {
-    // associate
+    this.belongsToMany(models.Category, {
+      through: 'Dish'
+    })
+
+    this.belongsTo(models.Order)
   }
 
   static config (sequelize) {
