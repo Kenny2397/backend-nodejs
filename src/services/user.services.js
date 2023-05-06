@@ -11,11 +11,9 @@ class UserService {
     const userEmail = data.email
 
     const userAlredyExist = await models.User.findOne({
-      where: {
-        email: userEmail
-      }
+      where: { email: userEmail }
     })
-    console.log('***********' + userAlredyExist)
+
     if (userAlredyExist !== null) {
       throw boom.conflict('User with email is already exist!')
     }
@@ -24,6 +22,7 @@ class UserService {
 
     const newUser = await models.User.create({
       ...data,
+      roleId: 2,
       password: hashPassword
     })
 

@@ -5,13 +5,17 @@
   "main": "index.js",
   "scripts": {
     "start": "node --watch index.js",
+    "docker:psql": "docker-compose up -d postgres && docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker-compose ps -q postgres)",
+    "docker:pga": "docker-compose up -d pgadmin",
     "dev": "node index.js",
     "lint": "eslint",
     "lint:format": "standard --fix",
     "migrations:generate": "sequelize-cli migration:generate --name",
     "migrations:run": "sequelize-cli db:migrate",
     "migrations:revert": "sequelize-cli db:migrate:undo",
-    "migrations:delete": "sequelize-cli db:migrate:undo:all"
+    "migrations:delete": "sequelize-cli db:migrate:undo:all",
+    "seeders:generate": "sequelize-cli seed:generate --name",
+    "seeders:run": "sequelize-cli db:seed:all"
   },
   "keywords": [],
   "author": "",

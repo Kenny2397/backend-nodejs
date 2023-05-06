@@ -1,4 +1,5 @@
 const { Model, DataTypes, Sequelize } = require('sequelize')
+const { ROLE_TABLE } = require('./role.model')
 
 const USER_TABLE = 'users'
 
@@ -11,17 +12,12 @@ const UserSchema = {
   },
   name: {
     allowNull: false,
-    type: DataTypes.STRING,
-    unique: false,
-    validate: {
-      is: /^(?=.*[a-zA-Z])[a-zA-Z0-9\s]+$/
-    }
+    type: DataTypes.STRING
   },
   lastName: {
     field: 'last_name',
     allowNull: false,
-    type: DataTypes.STRING,
-    unique: false
+    type: DataTypes.STRING
   },
   identifier: {
     type: DataTypes.STRING,
@@ -42,18 +38,23 @@ const UserSchema = {
     type: DataTypes.STRING,
     unique: true,
     validate: {
-      isEmail: {
-        msg: 'Invalid email format'
-      }
+      isEmail: true
     }
   },
   password: {
+    allowNull: false,
     type: DataTypes.STRING
   },
   roleId: {
     field: 'role_id',
+    allowNull: false,
     type: DataTypes.INTEGER,
-    defaultValue: 1
+    references: {
+      model: ROLE_TABLE,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
   },
   createdAt: {
     field: 'created_at',
@@ -67,17 +68,16 @@ class User extends Model {
   static associate (models) {
     // associate
     this.belongsTo(models.Role, {
-      as: 'role',
-      foreignKey: 'roleId'
+      as: 'role'
     })
 
-    this.hasMany(models.RestaurantEmployee, {
-      as: 'restaurants_employees'
-    })
+    // this.hasMany(models.RestaurantEmployee, {
+    //   as: 'restaurants_employees'
+    // })
 
-    this.hasOne(models.Order, {
-      as: 'order'
-    })
+    // this.hasOne(models.Order, {
+    //   as: 'order'
+    // })
   }
 
   static config (sequelize) {

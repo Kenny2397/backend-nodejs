@@ -6,14 +6,26 @@ const lastName = Joi.string()
 const identifier = Joi.string().regex(/^\d+$/)
 const phone = Joi.string().pattern(/^(\+)?\d{1,13}$/)
 const email = Joi.string().email()
-const password = Joi.string().min(3)
+const password = Joi.string()
+const roleId = Joi.string()
 
 const createUserSchema = Joi.object({
   name: name.required(),
   lastName: lastName.required(),
   identifier: identifier.required(),
   phone: phone.required(),
-  email: email.required()
+  email: email.required(),
+  password: password.required(),
+  roleId: roleId.required()
+})
+
+const createUserOwnerSchema = Joi.object({
+  name: name.required(),
+  lastName: lastName.required(),
+  identifier: identifier.required(),
+  phone: phone.required(),
+  email: email.required(),
+  password: password.required()
 })
 
 const updateUserSchema = Joi.object({
@@ -28,6 +40,7 @@ const getUserSchema = Joi.object({
 
 module.exports = {
   createUserSchema,
+  createUserOwnerSchema,
   updateUserSchema,
   getUserSchema
 }

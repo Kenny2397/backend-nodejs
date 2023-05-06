@@ -1,6 +1,7 @@
 const express = require('express')
 
 const userRouter = require('./user.routes')
+const roleRouter = require('./role.routes')
 const authRouter = require('./auth.routes')
 
 function RouterApi (app) {
@@ -8,6 +9,7 @@ function RouterApi (app) {
   app.use('/api/v1', router)
 
   router.use('/users', userRouter)
+  router.use('/roles', roleRouter)
   router.use('/auth', authRouter)
 }
 

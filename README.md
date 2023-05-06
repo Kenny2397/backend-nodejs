@@ -1,8 +1,9 @@
 
 Lista de cambios en modelo 
 
-[x] modelos
-[] routes
+[✔] models
+[✔] seeders
+[✔] docker automation
+[] testing jest y supertest endpoint users/owner
+[] routes, services, schemas
 [] auth
-
-[] testing jest y supertest

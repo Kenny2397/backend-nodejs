@@ -13,7 +13,7 @@ const sequelize = new Sequelize(URI, {
 })
 
 setupModels(sequelize)
-
-// sequelize.sync()
+// force True DROP
+// sequelize.sync({ force: false })
 
 module.exports = sequelize
