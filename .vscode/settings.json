@@ -3,6 +3,7 @@
     "editor.tabSize": 2,
     "editor.codeActionsOnSave": {
         "source.fixAll": true 
-    }
+    },
+    "jest.pathToJest": "node node_modules/jest/bin/jest.js"
     
 }
