@@ -32,10 +32,8 @@ const RestaurantSchema = {
   },
   nit: {
     allowNull: false,
-    type: DataTypes.STRING,
-    validate: {
-      isNumeric: true
-    }
+    unique: true,
+    type: DataTypes.INTEGER
   },
   ownerId: {
     field: 'owner_id',
@@ -52,11 +50,16 @@ const RestaurantSchema = {
 
 class Restaurant extends Model {
   static associate (models) {
-    this.belongsToMany(models.Category, {
-      through: 'Dish'
+    // this.belongsToMany(models.Category, {
+    //   through: 'Dish'
+    // })
+
+    this.hasMany(models.Dish, {
+      as: 'dishes',
+      foreignKey: 'restaurantId'
     })
 
-    this.belongsTo(models.Order)
+    // this.belongsTo(models.Order)
   }
 
   static config (sequelize) {

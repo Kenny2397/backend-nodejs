@@ -21,10 +21,7 @@ const DishSchema = {
   },
   price: {
     allowNull: false,
-    type: DataTypes.INTEGER,
-    validate: {
-      isInt: true
-    }
+    type: DataTypes.INTEGER
   },
   urlImage: {
     field: 'url_image',
@@ -68,8 +65,12 @@ const DishSchema = {
 
 class Dish extends Model {
   static associate (models) {
-    this.belongsToMany(models.Order, {
-      through: 'OrderDish'
+    this.belongsTo(models.Category, {
+      as: 'category'
+    })
+
+    this.belongsTo(models.Restaurant, {
+      as: 'restaurant'
     })
   }
 

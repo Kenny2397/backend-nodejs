@@ -27,8 +27,9 @@ const CategorySchema = {
 
 class Category extends Model {
   static associate (models) {
-    this.belongsToMany(models.Restaurant, {
-      through: 'Dish'
+    this.hasMany(models.Dish, {
+      as: 'dishes',
+      foreignKey: 'categoryId'
     })
   }
 
