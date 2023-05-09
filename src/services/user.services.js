@@ -22,6 +22,28 @@ class UserService {
 
     const newUser = await models.User.create({
       ...data,
+      password: hashPassword
+    })
+
+    delete newUser.dataValues.password
+    return newUser
+  }
+
+  async createOwner (data) {
+    const userEmail = data.email
+
+    const userAlredyExist = await models.User.findOne({
+      where: { email: userEmail }
+    })
+
+    if (userAlredyExist !== null) {
+      throw boom.conflict('User with email is already exist!')
+    }
+
+    const hashPassword = await bcrypt.hash(data.password, 10)
+
+    const newUser = await models.User.create({
+      ...data,
       roleId: 2,
       password: hashPassword
     })

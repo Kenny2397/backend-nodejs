@@ -12,21 +12,18 @@ app.listen(PORT, async (err) => {
     console.error(err.message)
   }
 
-  console.info('-------------- 🚀 Server running on ------------------')
-  console.info(`INFO:     http://localhost:${PORT} (Press CTRL+C to quit)`)
-  console.info('INFO:     Waiting for application startup.')
-  console.info('INFO:     Application startup complete.')
+  await sequelize.authenticate()
+    .then(async () => {
+      await sequelize.sync({ force: false })
 
-  sequelize.authenticate()
-    .then(() => {
+      console.info('-------------- 🚀 Server running  --------------------')
+      console.info(`INFO:     http://localhost:${PORT} (Press CTRL+C to quit)`)
+      console.info('INFO:     Waiting for application startup ...')
       console.info('INFO:     Sequelize Connected.')
-
-      // sequelize.sync({ force: false })
+      console.info('INFO:     Application startup complete.')
     }).catch(error => {
       console.error('INFO:     Cannot connect to database.', error)
     })
-
-  sequelize.sync({ force: false })
 })
 
 module.exports = app

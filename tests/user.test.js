@@ -23,6 +23,7 @@ it('POST /api/v1/users validate required fields', async function () {
 describe('POST /', () => {
   const randomNum = Math.floor(Math.random() * 9000) + 1000
 
+  const identifierRandom = `456${randomNum}324`
   const emailRandom = `kenny${randomNum}@pragma.com`
 
   it('responds with status code 200 to create a new user with role Admin', async function () {
@@ -31,7 +32,7 @@ describe('POST /', () => {
       .send({
         name: 'kenny',
         lastName: 'luque',
-        identifier: '712344529',
+        identifier: identifierRandom,
         phone: '+23423456',
         email: emailRandom,
         password: 'kennyluquegaaa',

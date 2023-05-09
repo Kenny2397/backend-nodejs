@@ -25,11 +25,11 @@ module.exports = {
       {
         name: 'kenny',
         last_name: 'luque',
-        identifier: '712344529',
+        identifier: '124564529',
         phone: '+23423456',
         email: 'kenny@pragma.com',
         password: 'kennyluquegaaa',
-        role_id: '1',
+        role_id: 1,
         created_at: new Date()
       }
     ]
@@ -83,5 +83,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
+
   }
 }

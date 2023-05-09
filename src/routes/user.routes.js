@@ -35,7 +35,7 @@ router.post('/owner',
     try {
       const body = req.body
       console.log(body)
-      const newUser = await userService.create(body)
+      const newUser = await userService.createOwner(body)
 
       res.status(200).json({
         response: newUser
