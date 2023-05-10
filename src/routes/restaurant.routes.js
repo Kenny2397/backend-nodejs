@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const passport = require('passport')
 
 const { validatorHandler } = require('../middlewares/validator.handler')
 
@@ -12,6 +13,7 @@ const restaurantService = new RestaurantService()
 
 /** CREATE RESTAURANT */
 router.post('/',
+  passport.authenticate('jwt', { session: false }),
   validatorHandler(createRestaurantSchema, 'body'),
   async (req, res, next) => {
     try {

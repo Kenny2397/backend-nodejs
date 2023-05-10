@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const passport = require('passport')
 
 const { validatorHandler } = require('../middlewares/validator.handler')
 
@@ -14,6 +15,7 @@ const dishService = new DishService()
 
 /** CREATE DISH */
 router.post('/',
+  passport.authenticate('jwt', { session: false }),
   validatorHandler(createDishSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -44,6 +46,7 @@ router.get('/:id',
   })
 
 router.patch('/:id',
+  passport.authenticate('jwt', { session: false }),
   validatorHandler(getDishSchema, 'params'),
   validatorHandler(updateDishSchema, 'body'),
   async (req, res, next) => {

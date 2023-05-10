@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const passport = require('passport')
 
 const { validatorHandler } = require('../middlewares/validator.handler')
 
@@ -13,6 +14,7 @@ const userService = new UserService()
 
 /** CREATE USER */
 router.post('/',
+  passport.authenticate('jwt', { session: false }),
   validatorHandler(createUserSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -30,6 +32,7 @@ router.post('/',
 
 /** CREATE OWNER */
 router.post('/owner',
+  passport.authenticate('jwt', { session: false }),
   validatorHandler(createUserOwnerSchema, 'body'),
   async (req, res, next) => {
     try {
