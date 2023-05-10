@@ -6,7 +6,7 @@ const address = Joi.string()
 const phone = Joi.string().pattern(/^(\+)?\d{1,13}$/)
 const urlLogo = Joi.string()
 const nit = Joi.number().integer()
-const ownerId = Joi.string()
+const ownerId = Joi.number().integer()
 
 const createRestaurantSchema = Joi.object({
   name: name.required(),

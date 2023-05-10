@@ -10,4 +10,5 @@ Lista de cambios en modelo
 [✔] testing jest y supertest endpoint dish
 [✔] testing jest y supertest endpoint restaurant
 [ ] testing jest y supertest VALIDATIONS
+[ ] testing jest y supertest VALIDATIONS que el usuario que crea un restaurante sea admin
 [ ] auth

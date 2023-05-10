@@ -52,6 +52,28 @@ class UserService {
     return newUser
   }
 
+  async createEmployee (data) {
+    const userEmail = data.email
+
+    const userAlredyExist = await models.User.findOne({
+      where: { email: userEmail }
+    })
+
+    if (userAlredyExist !== null) {
+      throw boom.conflict('User with email is already exist!')
+    }
+
+    const hashPassword = await bcrypt.hash(data.password, 10)
+
+    const newUser = await models.User.create({
+      ...data,
+      password: hashPassword
+    })
+
+    delete newUser.dataValues.password
+    return newUser
+  }
+
   async findByEmail (email) {
     const user = await models.User.findOne({
       where: {
@@ -72,20 +94,12 @@ class UserService {
   }
 
   async findOne (userId) {
-    // const product = this.products.find(p => p.id === productId)
-    // console.log(product)
-    // if(!product){
-    //   throw boom.notFound('No se encontró el producto')
-    // }
-    // if(product.isBlock){
-    //   throw boom.conflict('El producto está bloqueado')
-    // }
     const user = await models.User.findByPk(userId)
-    console.log('----' + user)
+    console.log('----' + user.dataValues)
     if (!user) {
       throw boom.conflict('User not found!')
     }
-    return user
+    return user.dataValues
   }
 
   async update (userId, data) {

@@ -28,6 +28,16 @@ const createUserOwnerSchema = Joi.object({
   password: password.required()
 })
 
+const createUserEmployeeSchema = Joi.object({
+  name: name.required(),
+  lastName: lastName.required(),
+  identifier: identifier.required(),
+  phone: phone.required(),
+  email: email.required(),
+  password: password.required(),
+  roleId: roleId.required()
+})
+
 const updateUserSchema = Joi.object({
   email: email.optional(),
   password: password.optional()
@@ -40,6 +50,7 @@ const getUserSchema = Joi.object({
 
 module.exports = {
   createUserSchema,
+  createUserEmployeeSchema,
   createUserOwnerSchema,
   updateUserSchema,
   getUserSchema

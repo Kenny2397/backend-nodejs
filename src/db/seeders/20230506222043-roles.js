@@ -1,4 +1,5 @@
 'use strict'
+const bcrypt = require('bcrypt')
 
 const { ROLE_TABLE } = require('./../models/role.model')
 const { CATEGORY_TABLE } = require('./../models/category.model')
@@ -23,13 +24,33 @@ module.exports = {
 
     const users = [
       {
-        name: 'kenny',
+        name: 'kenny Admin',
+        last_name: 'luque',
+        identifier: '7475445955',
+        phone: '+234234564',
+        email: 'kenny1@pragma.com',
+        password: await bcrypt.hash('kennyluquegaaa', 10),
+        role_id: 1,
+        created_at: new Date()
+      },
+      {
+        name: 'kenny Owner',
         last_name: 'luque',
         identifier: '124564529',
-        phone: '+23423456',
-        email: 'kenny@pragma.com',
-        password: 'kennyluquegaaa',
-        role_id: 1,
+        phone: '+234234563',
+        email: 'kenny2@pragma.com',
+        password: await bcrypt.hash('kennyluquegaaa', 10),
+        role_id: 2,
+        created_at: new Date()
+      },
+      {
+        name: 'kenny Employee',
+        last_name: 'luque',
+        identifier: '2345569456',
+        phone: '+2342344556',
+        email: 'kenny3@pragma.com',
+        password: await bcrypt.hash('kennyluquegaaa', 10),
+        role_id: 3,
         created_at: new Date()
       }
     ]
@@ -41,7 +62,7 @@ module.exports = {
         phone: '712344529',
         url_logo: 'https://random.io',
         nit: 12134324,
-        owner_id: '1',
+        owner_id: '2',
         created_at: new Date()
       },
       {
@@ -50,7 +71,7 @@ module.exports = {
         phone: '936765456',
         url_logo: 'https://random.io',
         nit: 4534563,
-        owner_id: '1',
+        owner_id: '2',
         created_at: new Date()
       }
     ]

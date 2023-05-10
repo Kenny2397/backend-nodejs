@@ -1,15 +1,27 @@
 const request = require('supertest')
-
 const app = require('../app')
+const { loginTest } = require('./utils')
 
-describe('POST /api/v1/restaurants', () => {
+/**
+ * CREATE RESTAURANT
+ */
+describe('POST /api/v1/restaurants create a restaurant by admin user', () => {
   const randomNum = Math.floor(Math.random() * 90000) + 10000
 
   const nitRandom = randomNum
 
-  it('POST /api/v1/restaurants validate required fields', async function () {
+  it('validate auth', async function () {
     const response = await request(app)
       .post('/api/v1/restaurants')
+      .send()
+    expect(response.status).toEqual(401)
+  })
+
+  it('validate required fields', async function () {
+    const token = await loginTest(app, 'admin')
+    const response = await request(app)
+      .post('/api/v1/restaurants')
+      .set('Authorization', `Bearer ${token}`)
       .send()
     expect(response.status).toEqual(400)
     expect(response.headers['content-type']).toMatch(/json/)
@@ -18,15 +30,17 @@ describe('POST /api/v1/restaurants', () => {
   })
 
   it('responds with status code 200 to create a new restaurant with role Admin', async function () {
+    const token = await loginTest(app, 'admin')
     const response = await request(app)
       .post('/api/v1/restaurants')
+      .set('Authorization', `Bearer ${token}`)
       .send({
         name: 'tanta2',
         address: 'jiron ica 123 lince',
         phone: '712344529',
         urlLogo: 'https://random.io',
         nit: nitRandom,
-        ownerId: '1'
+        ownerId: '2'
       })
     expect(response.status).toEqual(200)
     expect(response.headers['content-type']).toMatch(/json/)

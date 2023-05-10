@@ -18,7 +18,6 @@ router.post('/',
   async (req, res, next) => {
     try {
       const body = req.body
-      console.log(body)
       const newRestaurant = await restaurantService.create(body)
 
       res.status(200).json({

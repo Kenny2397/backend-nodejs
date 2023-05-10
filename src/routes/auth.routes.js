@@ -11,7 +11,7 @@ router.post('/login',
   async (req, res, next) => {
     try {
       const user = req.user
-      console.log(user)
+      // console.log(user)
       const payload = {
         sub: user.id,
         role: user.role
