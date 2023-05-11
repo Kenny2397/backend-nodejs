@@ -13,7 +13,38 @@ const {
 const DishService = require('../services/dish.services')
 const dishService = new DishService()
 
-/** CREATE DISH */
+/**
+ * @openapi
+ * /api/v1/users/dishes:
+ *    post:
+ *      tags:
+ *        - Dish
+ *      summary: "Create a new dish"
+ *      description: Create a dish by validating in Owner profile
+ *      requestBody:
+ *          content:
+ *            application/json:
+ *              schema:
+ *                 $ref: "#/components/schemas/dish"
+ *      responses:
+ *        '200':
+ *          description: Successful operation
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: "#/components/schemas/dish"
+ *            application/xml:
+ *              schema:
+ *                $ref: '#/components/schemas/dish'
+ *        '400':
+ *          description: "Error: Bad Request"
+ *        '401':
+ *          description: "Error: Unauthorized"
+ *        '409':
+ *          description: "Error: Conflict"
+ *      security:
+ *        - bearerAuth: []
+ */
 router.post('/',
   passport.authenticate('jwt', { session: false }),
   validatorHandler(createDishSchema, 'body'),

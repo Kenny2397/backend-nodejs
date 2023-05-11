@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --watch index.js",
+    "start": "nodemon index.js",
     "dev": "node index.js",
     "docker:psql": "docker-compose up -d postgres && docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker-compose ps -q postgres)",
     "docker:pga": "docker-compose up -d pgadmin",
@@ -44,6 +44,7 @@
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "jest": "^29.5.0",
+    "nodemon": "^2.0.22",
     "passport-jwt": "^4.0.1",
     "sequelize-cli": "^6.6.0",
     "supertest": "^6.3.3"

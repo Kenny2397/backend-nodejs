@@ -67,21 +67,12 @@ class UserService {
 
     const newUser = await models.User.create({
       ...data,
+      roleId: 3,
       password: hashPassword
     })
 
     delete newUser.dataValues.password
     return newUser
-  }
-
-  async findByEmail (email) {
-    const user = await models.User.findOne({
-      where: {
-        email
-      }
-    })
-
-    return user
   }
 
   async find () {

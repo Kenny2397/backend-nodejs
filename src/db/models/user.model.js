@@ -20,11 +20,8 @@ const UserSchema = {
     type: DataTypes.STRING
   },
   identifier: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      isNumeric: true
-    }
+    type: DataTypes.BIGINT(15),
+    allowNull: false
   },
   phone: {
     allowNull: false,

@@ -2,31 +2,121 @@
 const swaggerJSDoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
 
-const options = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'REST API Docs',
-      version: '1.0.0'
+const swaggerDefinition = {
+
+  openapi: '3.0.0',
+  info: {
+    title: 'REST API Docs',
+    version: '1.0.0'
+  },
+  servers: [
+    {
+      url: 'http://localhost:3000'
+    }
+  ],
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer'
+      }
     },
-    components: {
-      securitySchemas: {
-        bearerAuth: {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'JWT'
+    schemas: {
+      login: {
+        type: 'object',
+        required: ['email', 'password'],
+        properties: {
+          email: {
+            type: 'string',
+            example: 'kenny1@pragma.com'
+          },
+          password: {
+            type: 'string',
+            example: 'kennyluquegaaa'
+          }
+        }
+      },
+      usermaster: {
+        type: 'object',
+        required: ['name', 'lastName', 'identifier', 'phone', 'email', 'password', 'roleId'],
+        properties: {
+          name: {
+            type: 'string',
+            example: 'kenny'
+          },
+          lastName: {
+            type: 'string',
+            example: 'luque'
+          },
+          identifier: {
+            type: 'integer($int64)',
+            example: '7123124529'
+          },
+          phone: {
+            type: 'string',
+            example: '+23423456'
+          },
+          email: {
+            type: 'string',
+            example: 'ke4nny1234@pragma.com.co'
+          },
+          password: {
+            type: 'string',
+            example: 'kennyluquegaaa'
+          },
+          roleId: {
+            type: 'integer($int64)',
+            example: '1'
+          }
+        }
+      },
+      user: {
+        type: 'object',
+        required: ['name', 'lastName', 'identifier', 'phone', 'email', 'password'],
+        properties: {
+          name: {
+            type: 'string',
+            example: 'kenny'
+          },
+          lastName: {
+            type: 'string',
+            example: 'luque'
+          },
+          identifier: {
+            type: 'integer($int64)',
+            example: '72112234529'
+          },
+          phone: {
+            type: 'string',
+            example: '+234234456'
+          },
+          email: {
+            type: 'string',
+            example: 'ke4nny19374@pragma.com.co'
+          },
+          password: {
+            type: 'string',
+            example: 'kennyluquegaaa'
+          }
+        },
+        dish: {
+          type: 'object',
+          required: ['name', 'description', 'price', 'urlImage', 'categoryId', 'restaurantId'],
+          properties: {
+            name: {
+              type: 'string',
+              example: 'Papa Rellena'
+            }
+          }
         }
       }
-    },
-    security: [
-      {
-        bearerAuth: []
-      }
-    ]
-  },
-  apis: [
-    './src/routes/index.js'
-  ]
+    }
+  }
+}
+
+const options = {
+  swaggerDefinition,
+  apis: ['./src/routes/*.js']
 }
 
 const swaggerSpec = swaggerJSDoc(options)
