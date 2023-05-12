@@ -66,6 +66,7 @@ class UserService {
     if (!user) {
       throw boom.conflict('User not found!')
     }
+    delete user.dataValues.password
     return user.dataValues
   }
 

@@ -30,17 +30,23 @@ const userService = new UserService()
  *          content:
  *            application/json:
  *              schema:
- *                 $ref: "#/components/schemas/usermaster"
+ *                 $ref: "#/components/schemas/Usermaster"
+ *            application/xml:
+ *              schema:
+ *                $ref: '#/components/schemas/Usermaster'
+ *            application/x-www-form-urlencoded:
+ *              schema:
+ *                $ref: '#/components/schemas/Usermaster'
  *      responses:
  *        '200':
  *          description: Successful operation
  *          content:
  *            application/json:
  *              schema:
- *                $ref: "#/components/schemas/usermaster"
+ *                $ref: "#/components/schemas/Usermaster"
  *            application/xml:
  *              schema:
- *                $ref: '#/components/schemas/usermaster'
+ *                $ref: '#/components/schemas/Usermaster'
  *        '400':
  *          description: "Error: Bad Request"
  *        '401':
@@ -60,7 +66,7 @@ router.post('/',
       const newUser = await userService.create(body)
 
       res.status(200).json({
-        response: newUser
+        newUser
       })
     } catch (error) {
       next(error)
@@ -79,17 +85,23 @@ router.post('/',
  *          content:
  *            application/json:
  *              schema:
- *                 $ref: "#/components/schemas/user"
+ *                 $ref: "#/components/schemas/User"
+ *            application/xml:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ *            application/x-www-form-urlencoded:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
  *      responses:
  *        '200':
  *          description: Successful operation
  *          content:
  *            application/json:
  *              schema:
- *                $ref: "#/components/schemas/user"
+ *                $ref: "#/components/schemas/User"
  *            application/xml:
  *              schema:
- *                $ref: '#/components/schemas/user'
+ *                $ref: '#/components/schemas/User'
  *        '400':
  *          description: "Error: Bad Request"
  *        '401':
@@ -108,7 +120,7 @@ router.post('/owner',
       const body = req.body
       const newUser = await userService.createUserByRole(body, OWNER)
       res.status(200).json({
-        response: newUser
+        newUser
       })
     } catch (error) {
       next(error)
@@ -127,17 +139,23 @@ router.post('/owner',
  *          content:
  *            application/json:
  *              schema:
- *                 $ref: "#/components/schemas/user"
+ *                 $ref: "#/components/schemas/User"
+ *            application/xml:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ *            application/x-www-form-urlencoded:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
  *      responses:
  *        '200':
  *          description: Successful operation
  *          content:
  *            application/json:
  *              schema:
- *                $ref: "#/components/schemas/user"
+ *                $ref: "#/components/schemas/User"
  *            application/xml:
  *              schema:
- *                $ref: '#/components/schemas/user'
+ *                $ref: '#/components/schemas/User'
  *        '400':
  *          description: "Error: Bad Request"
  *        '401':
@@ -157,7 +175,7 @@ router.post('/employee',
       const newUser = await userService.createUserByRole(body, EMPLOYEE)
 
       res.status(200).json({
-        response: newUser
+        newUser
       })
     } catch (error) {
       next(error)
@@ -166,47 +184,49 @@ router.post('/employee',
 
 /**
  * @openapi
- * /api/v1/users/employee:
+ * /api/v1/users/client:
  *    post:
  *      tags:
  *        - User
- *      summary: "Create a new employee user"
- *      description: Create an employee user by validating in Owner profile
+ *      summary: "Create a new client user"
+ *      description: Create an client user without validations
  *      requestBody:
  *          content:
  *            application/json:
  *              schema:
- *                 $ref: "#/components/schemas/user"
+ *                 $ref: "#/components/schemas/User"
+ *            application/xml:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ *            application/x-www-form-urlencoded:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
  *      responses:
  *        '200':
  *          description: Successful operation
  *          content:
  *            application/json:
  *              schema:
- *                $ref: "#/components/schemas/user"
+ *                $ref: "#/components/schemas/User"
  *            application/xml:
  *              schema:
- *                $ref: '#/components/schemas/user'
+ *                $ref: '#/components/schemas/User'
  *        '400':
  *          description: "Error: Bad Request"
  *        '401':
  *          description: "Error: Unauthorized"
  *        '409':
  *          description: "Error: Conflict"
- *      security:
- *        - bearerAuth: []
  */
 router.post('/client',
-  passport.authenticate('jwt', { session: false }),
-  checkRoles(OWNER),
-  validatorHandler(createUserSchema, 'body'),
+  validatorHandler(createUserByRoleSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body
       const newUser = await userService.createUserByRole(body, CLIENT)
 
       res.status(200).json({
-        response: newUser
+        newUser
       })
     } catch (error) {
       next(error)
@@ -222,9 +242,9 @@ router.post('/client',
  *      summary: Find user by ID
  *      description: Returns a single user
  *      parameters:
- *        - name: petId
+ *        - name: UserId
  *          in: path
- *          description: ID of pet to return
+ *          description: ID of user to return
  *          required: true
  *          schema:
  *            type: integer
@@ -235,10 +255,10 @@ router.post('/client',
  *          content:
  *            application/json:
  *              schema:
- *                $ref: "#/components/schemas/employee"
+ *                $ref: "#/components/schemas/UserGet"
  *            application/xml:
  *              schema:
- *                $ref: '#/components/schemas/employee'
+ *                $ref: '#/components/schemas/UserGet'
  *        '400':
  *          description: "Error: Bad Request"
  *        '401':
@@ -256,7 +276,7 @@ router.get('/:id',
       const { id } = req.params
       const newUser = await userService.findOne(id)
       res.status(200).json({
-        response: newUser
+        newUser
       })
     } catch (error) {
       next(error)

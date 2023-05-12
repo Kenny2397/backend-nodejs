@@ -22,7 +22,7 @@ const swaggerDefinition = {
       }
     },
     schemas: {
-      login: {
+      Login: {
         type: 'object',
         required: ['email', 'password'],
         properties: {
@@ -36,7 +36,7 @@ const swaggerDefinition = {
           }
         }
       },
-      usermaster: {
+      Usermaster: {
         type: 'object',
         required: ['name', 'lastName', 'identifier', 'phone', 'email', 'password', 'roleId'],
         properties: {
@@ -70,7 +70,7 @@ const swaggerDefinition = {
           }
         }
       },
-      user: {
+      User: {
         type: 'object',
         required: ['name', 'lastName', 'identifier', 'phone', 'email', 'password'],
         properties: {
@@ -98,15 +98,48 @@ const swaggerDefinition = {
             type: 'string',
             example: 'kennyluquegaaa'
           }
-        },
-        dish: {
-          type: 'object',
-          required: ['name', 'description', 'price', 'urlImage', 'categoryId', 'restaurantId'],
-          properties: {
-            name: {
-              type: 'string',
-              example: 'Papa Rellena'
-            }
+        }
+      },
+      UserGet: {
+        type: 'object',
+        properties: {
+          name: {
+            type: 'string',
+            example: 'kenny'
+          },
+          lastName: {
+            type: 'string',
+            example: 'luque'
+          },
+          identifier: {
+            type: 'integer($int64)',
+            example: '72112234529'
+          },
+          phone: {
+            type: 'string',
+            example: '+234234456'
+          },
+          email: {
+            type: 'string',
+            example: 'ke4nny19374@pragma.com.co'
+          },
+          roleId: {
+            type: 'integer($int64)',
+            example: '2'
+          },
+          createdAt: {
+            type: 'date-time',
+            example: '2023-05-12T15:39:50.476Z'
+          }
+        }
+      },
+      Dish: {
+        type: 'object',
+        required: ['name', 'description', 'price', 'urlImage', 'categoryId', 'restaurantId'],
+        properties: {
+          name: {
+            type: 'string',
+            example: 'Papa Rellena'
           }
         }
       }
