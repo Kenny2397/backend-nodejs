@@ -1,17 +1,19 @@
 const express = require('express')
 const router = express.Router()
+
 const passport = require('./../utils/auth/index')
-
 const { validatorHandler } = require('../middlewares/validator.handler')
-
 const {
   createUserSchema,
   createUserOwnerSchema,
   getUserSchema
 } = require('../schemas/user.schema')
-
-const UserService = require('../services/user.services')
-const userService = new UserService()
+const models = require('./../libs/sequelize')
+const { checkRoles } = require('./../middlewares/auth.handler')
+const {
+  ADMIN,
+  OWNER
+} = require('./../utils/roles')
 
 /**
  * @openapi
@@ -47,12 +49,12 @@ const userService = new UserService()
  */
 router.post('/',
   passport.authenticate('jwt', { session: false }),
+  checkRoles(ADMIN),
   validatorHandler(createUserSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body
-      console.log(body)
-      const newUser = await userService.create(body)
+      const newUser = await models.User.create(body)
 
       res.status(200).json({
         response: newUser
@@ -96,13 +98,12 @@ router.post('/',
  */
 router.post('/owner',
   passport.authenticate('jwt', { session: false }),
+  checkRoles(ADMIN),
   validatorHandler(createUserOwnerSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body
-      console.log(body)
-      const newUser = await userService.createOwner(body)
-
+      const newUser = await models.User.createOwner(body)
       res.status(200).json({
         response: newUser
       })
@@ -145,11 +146,12 @@ router.post('/owner',
  */
 router.post('/employee',
   passport.authenticate('jwt', { session: false }),
+  checkRoles(OWNER),
   validatorHandler(createUserSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body
-      const newUser = await userService.createEmployee(body)
+      const newUser = await models.User.createEmployee(body)
 
       res.status(200).json({
         response: newUser
@@ -200,7 +202,7 @@ router.get('/:id',
   async (req, res, next) => {
     try {
       const { id } = req.params
-      const newUser = await userService.findOne(id)
+      const newUser = await models.User.findOne(id)
 
       res.status(200).json({
         response: newUser

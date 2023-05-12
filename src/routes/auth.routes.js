@@ -41,10 +41,9 @@ router.post('/login',
   async (req, res, next) => {
     try {
       const user = req.user
-      // console.log(user)
       const payload = {
         sub: user.id,
-        role: user.role
+        role: user.roleId
       }
       const token = jwt.sign(payload, config.jwtSecret)
       res.status(200).json({

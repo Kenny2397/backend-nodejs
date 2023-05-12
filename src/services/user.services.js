@@ -86,7 +86,6 @@ class UserService {
 
   async findOne (userId) {
     const user = await models.User.findByPk(userId)
-    console.log('----' + user.dataValues)
     if (!user) {
       throw boom.conflict('User not found!')
     }

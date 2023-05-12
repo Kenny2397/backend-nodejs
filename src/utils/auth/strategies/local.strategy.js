@@ -16,15 +16,10 @@ const LocalStrategy = new Strategy(
           email: userEmail
         }
       })
-      console.log(user)
       if (!user) {
         done(boom.unauthorized(), false)
       }
-      console.log('------------***')
-      console.log(userPassword)
-      console.log(user.password)
       const isMatch = await bcrypt.compare(userPassword, user.password)
-      console.log(isMatch)
 
       if (!isMatch) {
         done(boom.unauthorized(), false)

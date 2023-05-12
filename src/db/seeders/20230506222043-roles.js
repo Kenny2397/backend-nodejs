@@ -13,7 +13,8 @@ module.exports = {
     const roles = [
       { name: 'Administrador', description: 'El rol de Administrador', created_at: new Date() },
       { name: 'Propietario', description: 'El rol Propietario', created_at: new Date() },
-      { name: 'Empleado', description: 'El rol Empleado', created_at: new Date() }
+      { name: 'Empleado', description: 'El rol Empleado', created_at: new Date() },
+      { name: 'Cliente', description: 'El rol cliente', created_at: new Date() }
     ]
     const categories = [
       { name: 'LOS PLATOS', description: 'Platos de fondo', created_at: new Date() },
@@ -48,9 +49,19 @@ module.exports = {
         last_name: 'luque',
         identifier: '2345569456',
         phone: '+2342344556',
-        email: 'kenny3@pragma.com',
+        email: 'ke3nny3@pragma.com',
         password: await bcrypt.hash('kennyluquegaaa', 10),
         role_id: 3,
+        created_at: new Date()
+      },
+      {
+        name: 'kenny client',
+        last_name: 'luque',
+        identifier: '23499869456',
+        phone: '+23423444556',
+        email: 'kewnny343@pragma.com',
+        password: await bcrypt.hash('kennyluquegaaa', 10),
+        role_id: 4,
         created_at: new Date()
       }
     ]

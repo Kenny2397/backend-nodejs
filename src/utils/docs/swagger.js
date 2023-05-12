@@ -6,7 +6,7 @@ const swaggerDefinition = {
 
   openapi: '3.0.0',
   info: {
-    title: 'REST API Docs',
+    title: 'REST API Plaza de comidas',
     version: '1.0.0'
   },
   servers: [
@@ -132,7 +132,7 @@ function swaggerDocs (app, port) {
   })
 
   console.log(
-    `INFO:     Version 1 Docs are available on http://localhost:${port}/api/v1/docs`
+    `INFO:     Docs are available on http://localhost:${port}/api/v1/docs`
   )
 }
 

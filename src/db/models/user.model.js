@@ -20,7 +20,7 @@ const UserSchema = {
     type: DataTypes.STRING
   },
   identifier: {
-    type: DataTypes.BIGINT(15),
+    type: DataTypes.BIGINT,
     allowNull: false
   },
   phone: {
