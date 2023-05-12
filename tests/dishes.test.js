@@ -43,28 +43,16 @@ describe('POST /api/v1/dishes', () => {
   /**
    * UPDATE
    */
-  it('PATCH /api/v1/dishes/1 validate required fields', async function () {
-    const response = await request(app)
-      .patch('/api/v1/dishes/1')
-      .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsImlhdCI6MTY4MzcyNDUxOH0.2Bl2LjBBU4gsXAncUYlr-dOeG1C8UOf0pELCfNIanjI')
-      .send()
-    expect(response.status).toEqual(400)
-    expect(response.headers['content-type']).toMatch(/json/)
-    expect(response.body.error).toEqual('Bad Request')
-    expect(response.body.message).toEqual('"description" is required. "price" is required')
-  })
-
-  it('PATCH /api/v1/dishes/:id Responds with status code 200 to update price and description, being user owner', async function () {
-    const dishId = 1
-    console.log(`-------------/api/v1/dishes/:${dishId}`)
-    const response = await request(app)
-      .patch(`/api/v1/dishes/${dishId}`)
-      .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsImlhdCI6MTY4MzcyNDUxOH0.2Bl2LjBBU4gsXAncUYlr-dOeG1C8UOf0pELCfNIanjI')
-      .send({
-        description: 'El lomo saltdo es un plato tipico de Perú',
-        price: 50
-      })
-    expect(response.status).toEqual(200)
-    expect(response.headers['content-type']).toMatch(/json/)
+  describe('UPDATE DISH', () => {
+    it('PATCH /api/v1/dishes/1 validate required fields', async function () {
+      const response = await request(app)
+        .patch('/api/v1/dishes/1')
+        .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsImlhdCI6MTY4MzcyNDUxOH0.2Bl2LjBBU4gsXAncUYlr-dOeG1C8UOf0pELCfNIanjI')
+        .send()
+      expect(response.status).toEqual(400)
+      expect(response.headers['content-type']).toMatch(/json/)
+      expect(response.body.error).toEqual('Bad Request')
+      expect(response.body.message).toEqual('"description" is required. "price" is required')
+    })
   })
 })

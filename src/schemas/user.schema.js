@@ -19,7 +19,7 @@ const createUserSchema = Joi.object({
   roleId: roleId.required()
 })
 
-const createUserOwnerSchema = Joi.object({
+const createUserByRoleSchema = Joi.object({
   name: name.required(),
   lastName: lastName.required(),
   identifier: identifier.required(),
@@ -40,7 +40,7 @@ const getUserSchema = Joi.object({
 
 module.exports = {
   createUserSchema,
-  createUserOwnerSchema,
+  createUserByRoleSchema,
   updateUserSchema,
   getUserSchema
 }

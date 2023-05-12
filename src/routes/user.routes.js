@@ -5,15 +5,18 @@ const passport = require('./../utils/auth/index')
 const { validatorHandler } = require('../middlewares/validator.handler')
 const {
   createUserSchema,
-  createUserOwnerSchema,
+  createUserByRoleSchema,
   getUserSchema
 } = require('../schemas/user.schema')
-const models = require('./../libs/sequelize')
 const { checkRoles } = require('./../middlewares/auth.handler')
 const {
   ADMIN,
-  OWNER
+  OWNER,
+  EMPLOYEE,
+  CLIENT
 } = require('./../utils/roles')
+const UserService = require('./../services/user.services')
+const userService = new UserService()
 
 /**
  * @openapi
@@ -54,7 +57,7 @@ router.post('/',
   async (req, res, next) => {
     try {
       const body = req.body
-      const newUser = await models.User.create(body)
+      const newUser = await userService.create(body)
 
       res.status(200).json({
         response: newUser
@@ -99,11 +102,11 @@ router.post('/',
 router.post('/owner',
   passport.authenticate('jwt', { session: false }),
   checkRoles(ADMIN),
-  validatorHandler(createUserOwnerSchema, 'body'),
+  validatorHandler(createUserByRoleSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body
-      const newUser = await models.User.createOwner(body)
+      const newUser = await userService.createUserByRole(body, OWNER)
       res.status(200).json({
         response: newUser
       })
@@ -147,11 +150,60 @@ router.post('/owner',
 router.post('/employee',
   passport.authenticate('jwt', { session: false }),
   checkRoles(OWNER),
+  validatorHandler(createUserByRoleSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const body = req.body
+      const newUser = await userService.createUserByRole(body, EMPLOYEE)
+
+      res.status(200).json({
+        response: newUser
+      })
+    } catch (error) {
+      next(error)
+    }
+  })
+
+/**
+ * @openapi
+ * /api/v1/users/employee:
+ *    post:
+ *      tags:
+ *        - User
+ *      summary: "Create a new employee user"
+ *      description: Create an employee user by validating in Owner profile
+ *      requestBody:
+ *          content:
+ *            application/json:
+ *              schema:
+ *                 $ref: "#/components/schemas/user"
+ *      responses:
+ *        '200':
+ *          description: Successful operation
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: "#/components/schemas/user"
+ *            application/xml:
+ *              schema:
+ *                $ref: '#/components/schemas/user'
+ *        '400':
+ *          description: "Error: Bad Request"
+ *        '401':
+ *          description: "Error: Unauthorized"
+ *        '409':
+ *          description: "Error: Conflict"
+ *      security:
+ *        - bearerAuth: []
+ */
+router.post('/client',
+  passport.authenticate('jwt', { session: false }),
+  checkRoles(OWNER),
   validatorHandler(createUserSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body
-      const newUser = await models.User.createEmployee(body)
+      const newUser = await userService.createUserByRole(body, CLIENT)
 
       res.status(200).json({
         response: newUser
@@ -202,8 +254,7 @@ router.get('/:id',
   async (req, res, next) => {
     try {
       const { id } = req.params
-      const newUser = await models.User.findOne(id)
-
+      const newUser = await userService.findOne(id)
       res.status(200).json({
         response: newUser
       })

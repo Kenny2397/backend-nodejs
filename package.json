@@ -8,6 +8,7 @@
     "dev": "node index.js",
     "docker:psql": "docker-compose up -d postgres && docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker-compose ps -q postgres)",
     "docker:pga": "docker-compose up -d pgadmin",
+    "docker:down": "docker-compose down",
     "lint": "eslint",
     "lint:format": "standard --fix",
     "test": "npx jest --detectOpenHandles --verbose",

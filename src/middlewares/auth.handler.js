@@ -14,11 +14,15 @@ function checkApiKey (req, res, next) {
 
 function checkRoles (...roles) {
   return (req, res, next) => {
-    const user = req.user
-    if (roles.includes(user.roleId)) {
-      next()
-    } else {
-      next(boom.unauthorized())
+    try {
+      const useri = req.user
+      if (roles.includes(useri.roleId)) {
+        next()
+      } else {
+        throw boom.forbidden('The user does not have access to this route')
+      }
+    } catch (error) {
+      next(error)
     }
   }
 }
