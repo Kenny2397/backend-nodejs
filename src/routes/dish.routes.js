@@ -7,7 +7,8 @@ const { validatorHandler } = require('../middlewares/validator.handler')
 const {
   createDishSchema,
   getDishSchema,
-  updateDishSchema
+  updateDishSchema,
+  updateActiveDishSchema
 } = require('../schemas/dish.schema')
 
 const DishService = require('../services/dish.services')
@@ -80,6 +81,21 @@ router.patch('/:id',
   passport.authenticate('jwt', { session: false }),
   validatorHandler(getDishSchema, 'params'),
   validatorHandler(updateDishSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params
+
+      const updatedDish = await dishService.update(id, req.body)
+      res.status(200).json(updatedDish)
+    } catch (error) {
+      next(error)
+    }
+  })
+
+router.patch('/:id/active',
+  passport.authenticate('jwt', { session: false }),
+  validatorHandler(getDishSchema, 'params'),
+  validatorHandler(updateActiveDishSchema, 'body'),
   async (req, res, next) => {
     try {
       const { id } = req.params

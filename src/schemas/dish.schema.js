@@ -7,6 +7,7 @@ const price = Joi.number().integer()
 const urlImage = Joi.string()
 const categoryId = Joi.number().integer()
 const restaurantId = Joi.number().integer()
+const active = Joi.boolean()
 
 const createDishSchema = Joi.object({
   name: name.required(),
@@ -26,8 +27,13 @@ const updateDishSchema = Joi.object({
   price: price.required()
 })
 
+const updateActiveDishSchema = Joi.object({
+  active: active.required()
+})
+
 module.exports = {
   createDishSchema,
   updateDishSchema,
+  updateActiveDishSchema,
   getDishSchema
 }

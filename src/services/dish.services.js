@@ -13,16 +13,18 @@ class DishService {
 
   async findOne (id) {
     const dish = await models.Dish.findByPk(id)
-
     if (!dish) {
-      throw boom.notFound('dish not found!')
+      throw boom.conflict('Dish not found!')
     }
 
     return dish
   }
 
   async update (id, data) {
-    const dish = await this.findOne(id)
+    const dish = await models.Dish.findByPk(id)
+    if (!dish) {
+      throw boom.conflict('Dish not found!')
+    }
     const updatedDish = await dish.update(data)
     return updatedDish
   }
