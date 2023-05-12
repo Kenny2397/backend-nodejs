@@ -7,13 +7,34 @@ const swaggerDefinition = {
   openapi: '3.0.0',
   info: {
     title: 'REST API Plaza de comidas',
-    version: '1.0.0'
+    version: '2.0.0',
+    description: `You have found the Plazoleta Documentation! These pages are dedicated to showing you all the ways you can use Plazoleta's products. Whether you're looking to create new restaurants 
+      for your new customers or employees, receive automatic notifications related to your order statuses, view restaurants and manage the preparation of dishes, Plazoleta has something for you.
+      \nThis page provides a comprehensive presentation of Plazoleta's content documentation, so you know where to start or where to look if you need information on a specific feature. The Plazoleta API is organized around REST.
+      Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
+
+    \nAPI that allows the management of orders from different restaurants in a food court.
+    \nSome useful links:
+    \n- [The Plazoleta repository](https://github.com/swagger-api/swagger-petstore)
+    \n- [The source API definition for the Plazoleta](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+    `,
+    termsOfService: 'http://swagger.io/terms/',
+    contact: {
+      email: 'kenny.luque@pragma.com.co'
+    },
+    license: {
+      name: 'Apache 2.0',
+      url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    }
   },
   servers: [
     {
       url: 'http://localhost:3000'
     }
   ],
+  contact: {
+    email: 'kenny.luque@pragma.com.co'
+  },
   components: {
     securitySchemes: {
       bearerAuth: {
