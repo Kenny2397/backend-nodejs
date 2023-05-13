@@ -26,21 +26,23 @@ const dishService = new DishService()
  *          content:
  *            application/json:
  *              schema:
- *                 $ref: "#/components/schemas/dish"
+ *                 $ref: "#/components/schemas/Dish"
  *      responses:
  *        '200':
  *          description: Successful operation
  *          content:
  *            application/json:
  *              schema:
- *                $ref: "#/components/schemas/dish"
+ *                $ref: "#/components/schemas/Dish"
  *            application/xml:
  *              schema:
- *                $ref: '#/components/schemas/dish'
+ *                $ref: '#/components/schemas/Dish'
  *        '400':
  *          description: "Error: Bad Request"
  *        '401':
  *          description: "Error: Unauthorized"
+ *        '403':
+ *          description: "Error: Forbidden"
  *        '409':
  *          description: "Error: Conflict"
  *      security:
@@ -62,6 +64,43 @@ router.post('/',
     }
   })
 
+/**
+ * @openapi
+ * /api/v1/users/dishes/{id}:
+ *    get:
+ *      tags:
+ *        - Dish
+ *      summary: "Get a dish by id"
+ *      description: Get a Dish by id verify auth and role
+ *      parameters:
+ *        - name: DishId
+ *          in: path
+ *          description: ID of dish to return
+ *          required: true
+ *          schema:
+ *            type: integer
+ *            format: int64
+ *      responses:
+ *        '200':
+ *          description: Successful operation
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: "#/components/schemas/Dish"
+ *            application/xml:
+ *              schema:
+ *                $ref: '#/components/schemas/Dish'
+ *        '400':
+ *          description: "Error: Bad Request"
+ *        '401':
+ *          description: "Error: Unauthorized"
+ *        '403':
+ *          description: "Error: Forbidden"
+ *        '409':
+ *          description: "Error: Conflict"
+ *      security:
+ *        - bearerAuth: []
+ */
 router.get('/:id',
   validatorHandler(getDishSchema, 'params'),
   async (req, res, next) => {
@@ -77,6 +116,48 @@ router.get('/:id',
     }
   })
 
+/**
+ * @openapi
+ * /api/v1/users/dishes:
+ *    patch:
+ *      tags:
+ *        - Dish
+ *      summary: "Update dish"
+ *      description: Update a dish by validating in Owner profile
+ *      parameters:
+ *        - name: DishId
+ *          in: path
+ *          description: ID of dish to return
+ *          required: true
+ *          schema:
+ *            type: integer
+ *            format: int64
+ *      requestBody:
+ *          content:
+ *            application/json:
+ *              schema:
+ *                 $ref: "#/components/schemas/Dish"
+ *      responses:
+ *        '200':
+ *          description: Successful operation
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: "#/components/schemas/Dish"
+ *            application/xml:
+ *              schema:
+ *                $ref: '#/components/schemas/Dish'
+ *        '400':
+ *          description: "Error: Bad Request"
+ *        '401':
+ *          description: "Error: Unauthorized"
+ *        '403':
+ *          description: "Error: Forbidden"
+ *        '409':
+ *          description: "Error: Conflict"
+ *      security:
+ *        - bearerAuth: []
+ */
 router.patch('/:id',
   passport.authenticate('jwt', { session: false }),
   validatorHandler(getDishSchema, 'params'),

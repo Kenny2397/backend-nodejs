@@ -51,6 +51,8 @@ const userService = new UserService()
  *          description: "Error: Bad Request"
  *        '401':
  *          description: "Error: Unauthorized"
+ *        '403':
+ *          description: "Error: Forbidden"
  *        '409':
  *          description: "Error: Conflict"
  *      security:
@@ -106,6 +108,8 @@ router.post('/',
  *          description: "Error: Bad Request"
  *        '401':
  *          description: "Error: Unauthorized"
+ *        '403':
+ *          description: "Error: Forbidden"
  *        '409':
  *          description: "Error: Conflict"
  *      security:
@@ -160,6 +164,8 @@ router.post('/owner',
  *          description: "Error: Bad Request"
  *        '401':
  *          description: "Error: Unauthorized"
+ *        '403':
+ *          description: "Error: Forbidden"
  *        '409':
  *          description: "Error: Conflict"
  *      security:
@@ -215,6 +221,8 @@ router.post('/employee',
  *          description: "Error: Bad Request"
  *        '401':
  *          description: "Error: Unauthorized"
+ *        '403':
+ *          description: "Error: Forbidden"
  *        '409':
  *          description: "Error: Conflict"
  */
@@ -263,6 +271,8 @@ router.post('/client',
  *          description: "Error: Bad Request"
  *        '401':
  *          description: "Error: Unauthorized"
+ *        '403':
+ *          description: "Error: Forbidden"
  *        '409':
  *          description: "Error: Conflict"
  *      security:

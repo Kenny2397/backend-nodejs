@@ -8,8 +8,8 @@ const { Category, CategorySchema } = require('./category.model')
 // const { RestaurantEmployee, RestaurantEmployeeSchema } = require('./restaurant-employee.model')
 
 function setupModels (sequelize) {
-  User.init(UserSchema, User.config(sequelize))
   Role.init(RoleSchema, Role.config(sequelize))
+  User.init(UserSchema, User.config(sequelize))
   Restaurant.init(RestaurantSchema, Restaurant.config(sequelize))
   Dish.init(DishSchema, Dish.config(sequelize))
   Category.init(CategorySchema, Category.config(sequelize))
@@ -17,8 +17,8 @@ function setupModels (sequelize) {
   // OrderDish.init(OrderDishSchema, OrderDish.config(sequelize))
   // RestaurantEmployee.init(RestaurantEmployeeSchema, RestaurantEmployee.config(sequelize))
 
-  User.associate(sequelize.models)
   Role.associate(sequelize.models)
+  User.associate(sequelize.models)
   Restaurant.associate(sequelize.models)
   Dish.associate(sequelize.models)
   Category.associate(sequelize.models)

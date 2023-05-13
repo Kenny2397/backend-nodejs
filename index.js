@@ -16,7 +16,7 @@ app.listen(PORT, async (err) => {
 
   await sequelize.authenticate()
     .then(async () => {
-      await sequelize.sync({ force: false })
+      await sequelize.sync({ force: true })
 
       console.info('-------------- 🚀 Server running  --------------------')
       console.info(`INFO:     http://localhost:${PORT} (Press CTRL+C to quit)`)

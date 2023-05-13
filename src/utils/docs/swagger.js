@@ -161,6 +161,26 @@ const swaggerDefinition = {
           name: {
             type: 'string',
             example: 'Papa Rellena'
+          },
+          description: {
+            type: 'string',
+            example: 'Papa Rellena es un plato típico de Perú'
+          },
+          price: {
+            type: 'integer($int64)',
+            example: 40
+          },
+          urlImage: {
+            type: 'string',
+            example: 'https://random.jpg'
+          },
+          categoryId: {
+            type: 'integer($int64)',
+            example: 1
+          },
+          restaurantId: {
+            type: 'integer($int64)',
+            example: 2
           }
         }
       }

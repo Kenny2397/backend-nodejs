@@ -28,7 +28,7 @@ services:
       - MYSQL_ROOT_PASSWORD=admin123
       - MYSQL_PORT=3306
     ports:
-      - 3306:3306
+      - 33061:3306
     volumes:
       - ./mysql_data:/var/lib/mysql
 
