@@ -16,6 +16,7 @@ const LocalStrategy = new Strategy(
           email: userEmail
         }
       })
+      console.log(user)
       if (!user) {
         done(boom.unauthorized(), false)
       }

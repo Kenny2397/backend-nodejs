@@ -37,7 +37,6 @@ const RestaurantSchema = {
   },
   ownerId: {
     field: 'owner_id',
-    allowNull: false,
     type: DataTypes.INTEGER
   },
   createdAt: {
@@ -56,7 +55,10 @@ class Restaurant extends Model {
 
     this.hasMany(models.Dish, {
       as: 'dishes',
-      foreignKey: 'restaurantId'
+      foreignKey: {
+        name: 'restaurantId',
+        field: 'restaurant_id'
+      }
     })
 
     // this.belongsTo(models.Order)

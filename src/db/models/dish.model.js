@@ -35,7 +35,6 @@ const DishSchema = {
   },
   categoryId: {
     field: 'category_id',
-    allowNull: false,
     type: DataTypes.INTEGER,
     references: {
       model: CATEGORY_TABLE,
@@ -46,7 +45,6 @@ const DishSchema = {
   },
   restaurantId: {
     field: 'restaurant_id',
-    allowNull: false,
     type: DataTypes.INTEGER,
     references: {
       model: RESTAURANT_TABLE,

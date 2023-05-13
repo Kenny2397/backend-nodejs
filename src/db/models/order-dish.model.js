@@ -18,7 +18,6 @@ const OrderDishSchema = {
   },
   orderId: {
     field: 'order_id',
-    allowNull: false,
     type: DataTypes.INTEGER,
     references: {
       model: ORDER_TABLE,
@@ -29,7 +28,6 @@ const OrderDishSchema = {
   },
   dishId: {
     field: 'dish_id',
-    allowNull: false,
     type: DataTypes.INTEGER,
     references: {
       model: DISH_TABLE,

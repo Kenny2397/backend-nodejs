@@ -31,7 +31,10 @@ class Role extends Model {
     // associate
     this.hasMany(models.User, {
       as: 'users',
-      foreignKey: 'roleId'
+      foreignKey: {
+        name: 'roleId',
+        field: 'role_id'
+      }
     })
   }
 

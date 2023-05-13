@@ -44,7 +44,6 @@ const UserSchema = {
   },
   roleId: {
     field: 'role_id',
-    allowNull: false,
     type: DataTypes.INTEGER,
     references: {
       model: ROLE_TABLE,

@@ -29,7 +29,10 @@ class Category extends Model {
   static associate (models) {
     this.hasMany(models.Dish, {
       as: 'dishes',
-      foreignKey: 'categoryId'
+      foreignKey: {
+        name: 'categoryId',
+        field: 'category_id'
+      }
     })
   }
 

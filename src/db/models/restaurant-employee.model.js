@@ -14,7 +14,6 @@ const RestaurantEmployeeSchema = {
   },
   restaurantId: {
     field: 'restaurant_id',
-    allowNull: false,
     type: DataTypes.INTEGER,
     references: {
       model: RESTAURANT_TABLE,
@@ -25,7 +24,6 @@ const RestaurantEmployeeSchema = {
   },
   personId: {
     field: 'person_id',
-    allowNull: false,
     type: DataTypes.INTEGER,
     references: {
       model: USER_TABLE,
@@ -46,7 +44,10 @@ class RestaurantEmployee extends Model {
   static associate (models) {
     this.belongsTo(models.User, {
       as: 'person',
-      foreignKey: 'personId'
+      foreignKey: {
+        name: 'personId',
+        field: 'person_id'
+      }
     })
 
     this.belongsTo(models.Order, {

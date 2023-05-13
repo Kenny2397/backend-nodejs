@@ -26,7 +26,6 @@ const OrderSchema = {
   },
   clientId: {
     field: 'client_id',
-    allowNull: false,
     type: DataTypes.INTEGER
   },
   createdAt: {
@@ -44,17 +43,26 @@ class Order extends Model {
     })
 
     this.hasOne(models.Restaurant, {
-      foreignKey: 'restaurantId'
+      foreignKey: {
+        name: 'restaurantId',
+        field: 'restaurant_id'
+      }
     })
 
     this.belongsTo(models.User, {
       as: 'client',
-      foreignKey: 'clientId'
+      foreignKey: {
+        name: 'clientId',
+        field: 'client_id'
+      }
     })
 
     this.hasOne(models.RestaurantEmployee, {
       as: 'restaurants_employees',
-      foreignKey: 'chefId'
+      foreignKey: {
+        name: 'chefId',
+        field: 'chef_id'
+      }
     })
   }
 
